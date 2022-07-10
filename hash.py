@@ -127,9 +127,6 @@ def format(hash):
 
 def hash(key, key2, key3, cipher_array):
     form = ""
-    print(key)
-    print(key2)
-    print(key3)
     hash = ""
     for i in range(len(cipher_array)):
         temp = (int(cipher_array[i])+int(key))%11
