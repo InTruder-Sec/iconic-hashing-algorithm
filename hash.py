@@ -1,4 +1,4 @@
-def ord_encode(string):
+def ord_encode(string): #Converts each characters to its ascii characters
     cipher = ""
     for char in string:
         ascii = str(ord(char))
@@ -7,7 +7,7 @@ def ord_encode(string):
     padding(cipher)
     
 
-def key_gen(new_cipher):
+def key_gen(new_cipher): #Generate keys for encrypting
     sum = 0
     for i in range(len(new_cipher)):
         sum += int(new_cipher[i])
@@ -30,11 +30,11 @@ def key_gen3(new_cipher):
     key3 = new_cipher[0]+new_cipher[length - 1]
     return
 
-def padding(cipher):
+def padding(cipher): # Changes cipher text into padded text
     length = len(cipher)
     if length < 64:
         t = 1
-        for i in range(length, 64):
+        for i in range(length, 64): #Addes base 10 no if length of cipher text is less than 64
             if t<10:
                 cipher += str(t)
                 t = t + 1
@@ -43,7 +43,7 @@ def padding(cipher):
     if length > 64:
         l =1
         for i in range(32):
-            if len(cipher)%32!=0:
+            if len(cipher)%32!=0: #If length is greater than 64 it addes base 10 no to nearest 32 divisible no
                 if l >= 10:
                     l = 1
                 cipher += str(l)
@@ -59,7 +59,7 @@ def padding(cipher):
     n = 0
     for m in range(div):
         t = ""
-        for i in range(n, 32 + n):
+        for i in range(n, 32 + n): #Divides cipher text into 32 parts and stores in array
             t = t + str(cipher_array[i])
         n += 32
         split.append(t)
@@ -73,12 +73,13 @@ def padding(cipher):
     cipher_array = []
     for char in n_cipher:
         cipher_array.append(char)
+    #Generate keys
     key_gen(cipher_array)
     key_gen2(cipher_array)  
     key_gen3(cipher_array)  
     hash(key, key2, key3, cipher_array)
 
-def format(hash):
+def format(hash): #Change the hash into length of 38
     l = 1
     for i in range(38):
         if len(hash)%38!=0:
@@ -109,7 +110,7 @@ def format(hash):
     print(t)
 
 
-def hash(key, key2, key3, cipher_array):
+def hash(key, key2, key3, cipher_array): #Hashes the cipher text with keys
     form = ""
     hash = ""
     for i in range(len(cipher_array)):
