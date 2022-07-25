@@ -82,17 +82,23 @@ Although originally designed as a cryptographic message authentication code algo
 Collisions in the MD5 cryptographic hash function
 	It is now well-known that the crytographic hash function MD5 has been broken. In March 2005, Xiaoyun Wang and Hongbo Yu of Shandong University in China published an article in which they describe an algorithm that can find two different sequences of 128 bytes with the same MD5 hash. One famous such pair is the following:
 
-d131dd02c5e6eec4693d9a0698aff95c2fcab58712467eab4004583eb8fb7f89 
+`d131dd02c5e6eec4693d9a0698aff95c2fcab58712467eab4004583eb8fb7f89 
+
 55ad340609f4b30283e488832571415a085125e8f7cdc99fd91dbdf280373c5b 
+
 d8823e3156348f5bae6dacd436c919c6dd53e2b487da03fd02396306d248cda0 
-e99f33420f577ee8ce54b67080a80d1ec69821bcb6a8839396f9652b6ff72a70
+
+e99f33420f577ee8ce54b67080a80d1ec69821bcb6a8839396f9652b6ff72a70`
 
 and	
 
-d131dd02c5e6eec4693d9a0698aff95c2fcab50712467eab4004583eb8fb7f89 
+`d131dd02c5e6eec4693d9a0698aff95c2fcab50712467eab4004583eb8fb7f89 
+
 55ad340609f4b30283e4888325f1415a085125e8f7cdc99fd91dbd7280373c5b 
+
 d8823e3156348f5bae6dacd436c919c6dd53e23487da03fd02396306d248cda0 
-e99f33420f577ee8ce54b67080280d1ec69821bcb6a8839396f965ab6ff72a70 
+
+e99f33420f577ee8ce54b67080280d1ec69821bcb6a8839396f965ab6ff72a70 `
 
 Each of these blocks has MD5 hash 79054025255fb1a26e4bc422aef54eb4. Ben Laurie has a nice website that visualizes this MD5 collision. For a non-technical, though slightly outdated, introduction to hash functions, see Steve Friedle's Illustrated Guide.
 Exploits
@@ -134,25 +140,27 @@ IH is a unique hashing algorithm which works on base 10 digits for hashing.  Thi
 
    3.2 | Unique digits in IH
    
-In IH each of the digits are represented by unique digits. And the combination of all this digits for a string is called cipher text.
+In IH each of the digits are represented by its ascii digits. And the combination of all this digits for a string is called cipher text.
 ```
-upper_case = [["A", "01"], ["B", "02"], ["C", "03"], ["D", "04"], ["E", "05"], ["F", "06"], ["G", "07"], ["H", "08"], ["I", "09"], ["J", "11"], ["K", "22"], ["L", "33"], ["M", "44"], ["N", "55"], ["O", "66"], ["P", "77"], ["Q", "88"], ["R", "99"], ["S", "12"], ["T", "13"], ["U", "14"], ["V", "15"], ["W", "16"], ["X", "17"], ["Y", "18"], ["Z", "19"]]
-
-lower_case = [["a", "23"], ["b", "24"], ["c", "25"], ["d", "26"], ["e", "27"], ["f", "28"], ["g", "29"], ["h", "34"], ["i", "35"], ["j", "36"], ["k", "37"], ["l", "38"], ["m", "39"], ["n", "45"], ["o", "46"], ["p", "47"], ["q", "48"], ["r", "49"], ["s", "56"], ["t", "57"], ["u", "58"], ["v", "59"], ["w", "67"], ["x", "68"], ["y", "69"], ["z", "78"]]
-
-    number = [["1", "601"], ["2", "602"], ["3", "603"], ["4", "604"], ["5", "605"], ["6", "606"], ["7", "607"], ["8", "608"], ["9", "609"], ["0", "610"], [" ", "00"]]
-
-    symbols = [["~", "1000"], ["`", "1001"], ["!", "1002"], ["#", "1003"], ["$", "1004"], ["%", "1005"], ["^", "1006"], ["&", "1007"], ["*", "1008"], ["(", "1009"], [")", "1010"], ["-", "1011"], ["_", "1012"], ["=", "1013"], ["+", "1014"], ["{", "1015"], ["}", "1016"], ["[", "1017"], ["]", "1018"], [":", "1019"], [";", "1020"], ['"', "1021"], ["'", "1022"], ["|", "1023"], ["\\", "1024"], ["<", "1025"], ["@", "1026"]]
+def ord_encode(string): #Converts each characters to its ascii characters
+    cipher = ""
+    for char in string:
+        ascii = str(ord(char))
+        cipher += ascii
+    print("Cipher Text: ", cipher)
+    padding(cipher)
 ```
 
-The above mentioned 2D array represents the numbers with which upper case letters, lower case letters, numbers and symbols are represented.  
+The above mentioned code changes each letters, symbols, numbers into its ascii character
 
 ```
-def encode(string):
-    upper_case = [["A", "01"], ["B", "02"], ["C", "03"], ["D", "04"], ["E", "05"], ["F", "06"], ["G", "07"], ["H", "08"], ["I", "09"], ["J", "11"], ["K", "22"], ["L", "33"], ["M", "44"], ["N", "55"], ["O", "66"], ["P", "77"], ["Q", "88"], ["R", "99"], ["S", "12"], ["T", "13"], ["U", "14"], ["V", "15"], ["W", "16"], ["X", "17"], ["Y", "18"], ["Z", "19"]]
-    lower_case = [["a", "23"], ["b", "24"], ["c", "25"], ["d", "26"], ["e", "27"], ["f", "28"], ["g", "29"], ["h", "34"], ["i", "35"], ["j", "36"], ["k", "37"], ["l", "38"], ["m", "39"], ["n", "45"], ["o", "46"], ["p", "47"], ["q", "48"], ["r", "49"], ["s", "56"], ["t", "57"], ["u", "58"], ["v", "59"], ["w", "67"], ["x", "68"], ["y", "69"], ["z", "78"]]
-    number = [["1", "601"], ["2", "602"], ["3", "603"], ["4", "604"], ["5", "605"], ["6", "606"], ["7", "607"], ["8", "608"], ["9", "609"], ["0", "610"], [" ", "00"]]
-    symbols = [["~", "1000"], ["`", "1001"], ["!", "1002"], ["#", "1003"], ["$", "1004"], ["%", "1005"], ["^", "1006"], ["&", "1007"], ["*", "1008"], ["(", "1009"], [")", "1010"], ["-", "1011"], ["_", "1012"], ["=", "1013"], ["+", "1014"], ["{", "1015"], ["}", "1016"], ["[", "1017"], ["]", "1018"], [":", "1019"], [";", "1020"], ['"', "1021"], ["'", "1022"], ["|", "1023"], ["\\", "1024"], ["<", "1025"], ["@", "1026"]]
+def ord_encode(string): #Converts each characters to its ascii characters
+    cipher = ""
+    for char in string:
+        ascii = str(ord(char))
+        cipher += ascii
+    print("Cipher Text: ", cipher)
+    padding(cipher)
 
     global cipher
     cipher = ""
