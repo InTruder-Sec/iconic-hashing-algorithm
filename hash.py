@@ -13,12 +13,11 @@ def encode(string):  # Converts each characters to its ascii characters
     for char in string:
         ascii = str(ord(char))
         cipher += ascii
-    print("Cipher Text: ", cipher)
     finalhash = padding(cipher)
     return finalhash
 
 
-def key_gen(new_cipher):  # Generate keys for encrypting
+def key_gen1(new_cipher):  # Generate keys for encrypting
     sum = 0
     for i in range(len(new_cipher)):
         sum += int(new_cipher[i])
@@ -89,7 +88,7 @@ def padding(cipher):  # Changes cipher text into padded text
     for char in n_cipher:
         cipher_array.append(char)
     # Generate keys
-    key = key_gen(cipher_array)
+    key = key_gen1(cipher_array)
     key2 = key_gen2(cipher_array)
     key3 = key_gen3(cipher_array)
     finalhash = hash(key, key2, key3, cipher_array)
@@ -139,14 +138,3 @@ def hash(key, key2, key3, cipher_array):  # Hashes the cipher text with keys
         hash += str(var)
     finalhash = format(hash)
     return finalhash
-
-
-def main():
-    print("Iconic Hashing Algorithm")
-    print("Version: 1.0.1")
-    string = input("Enter a string to hash: ")
-    finalhash = encode(string)
-    print(finalhash)
-
-if __name__ == "__main__":
-    main()
