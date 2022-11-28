@@ -142,7 +142,6 @@ def hash(key, key2, key3, cipher_array):  # Hashes the cipher text with keys
     for i in range(len(form)):
         if i % 2 == 0:
             var = (int(form[i])+(int(key3)*int(key2))) % 11
-            # var = hex(var)
             hash += str(var)
         else:
             var = (int(form[i])+(int(key3)*int(key2))) % 11
