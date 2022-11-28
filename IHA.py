@@ -98,18 +98,18 @@ def padding(cipher):  # Changes cipher text into padded text
 
 def format(hash):  # Change the hash into length of 38
     l = 1
-    for i in range(38):
-        if len(hash) % 38 != 0:
+    for i in range(32):
+        if len(hash) % 32 != 0:
             if l >= 10:
                 l = 1
             hash += str(l)
             l = l+1
-        if len(hash) % 38 == 0:
+        if len(hash) % 32 == 0:
             break
     split = []
     a = ""
     for i in range(len(hash)):
-        if (i+1) % 38 == 0:
+        if (i+1) % 32 == 0:
             a = a + hash[i]
             split.append(a)
             a = ""
@@ -117,12 +117,16 @@ def format(hash):  # Change the hash into length of 38
             a = a + hash[i]
 
     t = ""
-    for i in range(38):
+    for i in range(32):
         sum = 0
         for m in range(len(split)):
             k = split[m][i]
             sum = int(sum) + int(k)
-        no = sum % 10
+
+        if(i % 2 == 0):
+            no = hex(sum).lstrip("0x").rstrip("L")
+        else:
+            no = sum % 10
         t = t + str(no)
     return t
 
@@ -134,9 +138,17 @@ def hash(key, key2, key3, cipher_array):  # Hashes the cipher text with keys
         temp = (int(cipher_array[i])+int(key)) % 11
         form += str(temp)
         temp = 0
+
     for i in range(len(form)):
-        var = (int(form[i])+(int(key3)*int(key2))) % 11
-        hash += str(var)
+        if i % 2 == 0:
+            var = (int(form[i])+(int(key3)*int(key2))) % 11
+            # var = hex(var)
+            hash += str(var)
+        else:
+            var = (int(form[i])+(int(key3)*int(key2))) % 11
+            hash += str(var)
+    finalhash = format(hash)
+
     finalhash = format(hash)
     return finalhash
 
@@ -147,6 +159,7 @@ def main():
     string = input("Enter a string to hash: ")
     finalhash = encode(string)
     print(finalhash)
+
 
 if __name__ == "__main__":
     main()
