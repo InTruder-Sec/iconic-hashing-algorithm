@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iconic Hashing Algorithm</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Iconic Hashing Algorithm</h1>
+      <form method="POST">
+        <label for="user_input">Enter text to hash:</label><br />
+        <input
+          type="text"
+          id="user_input"
+          name="user_input"
+          value="{{ input_text }}"
+          required /><br /><br />
+        <button type="submit">Generate Hash</button>
+      </form>
+      {% if hash_result %}
+      <div class="result">
+        <h3>Generated Hash:</h3>
+        <p>{{ hash_result }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
